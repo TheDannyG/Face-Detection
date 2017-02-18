@@ -8,11 +8,12 @@ Created on Fri Feb 17 21:05:30 2017
 import boto3
 
 #connect to AWS
-client = boto3.client('rekognition', region_name='us-east-1')
+client = boto3.client('rekognition')
 
-#collection name
+#set collection name
 collection_name = 'authorized_faces'
 
+#check if collection already exists
 response_list = client.list_collections()
 if collection_name not in response_list['CollectionIds']: 
     #create collection
@@ -22,6 +23,7 @@ if collection_name not in response_list['CollectionIds']:
     print response_coll
 else: 
     print 'Collection ', collection_name, ' already exists.'
+    #get and print list of faces
     response_faces = client.list_faces(CollectionId=collection_name)
     print collection_name, 'contains ', len(response_faces['Faces']), ' faces'
     print response_faces['Faces']
