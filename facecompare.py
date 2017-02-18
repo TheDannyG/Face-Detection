@@ -31,8 +31,8 @@ if __name__ == '__main__':
     client = boto3.client(
         'rekognition',
         region_name = 'us-east-1', 
-        aws_access_key_id = 'AKIAJSBBWLF7LNQYLUOQ',
-        aws_secret_access_key = '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',
+        aws_access_key_id = 'accesskey',
+        aws_secret_access_key = 'secretaccesskey',
 )
 
     # Our source image: http://i.imgur.com/OK8aDRq.jpg
