@@ -11,10 +11,11 @@ Created on Mon Feb 20 13:13:13 2017
 #import nessisary libraries
 import cv2
 import boto3
+import time
 #Import the search_face program's function to find faces and compare them
 #to the faces in the cloud
 #This file must be in the same directory as search_face
-from search_face import search_face
+from search_faces import search_face
 
 #Connect to AWS
 client = boto3.client('rekognition')
@@ -36,6 +37,11 @@ def Empty(x):
     
 #Define the function that creates the window and displays webcam output
 def show_webcam(mirror=False):
+    startTime = 0
+    
+    #Define font
+    font = cv2.FONT_HERSHEY_SIMPLEX
+    
     #Define variable that holds authrization level
     authorized = ''
     
@@ -53,20 +59,13 @@ def show_webcam(mirror=False):
         #Create trackbar
         cv2.createTrackbar(switch, 'Face Authorizer',0,1,Empty)
         
-        #Mirror webcam feed so it is like looking in a mirror
-        if mirror: 
-            img = cv2.flip(img, 1)
-        
-        #Display the who is currently detected and authrization level
-        font = cv2.FONT_HERSHEY_SIMPLEX
-        cv2.putText(img,authorized,(10,30), font, 1,(0,255,0),2)
-        
-        #Disply the video feed
-        cv2.imshow('Face Authorizer', img)
-        
         #esc to quit
         if cv2.waitKey(1) == 27: 
             break  
+    
+            #Mirror webcam feed so it is like looking in a mirror
+        if mirror: 
+            img = cv2.flip(img, 1)
         
         #Get trackbar posiotion
         s = cv2.getTrackbarPos(switch,'Face Authorizer')
@@ -83,11 +82,21 @@ def show_webcam(mirror=False):
                 seq = (face_name, ": ", "Not Authorized") 
                 authorized = s.join(seq) 
                 print authorized
+                startTime = time.time()
             else:
                 seq = (face_name, ": ", "Authorized")   
                 authorized = s.join(seq)
                 print authorized
+                #check time
+                startTime = time.time()
 
+        if (startTime >= time.time()-5) & (startTime <= time.time()):
+            #Display the who is currently detected and authrization level
+            cv2.putText(img,authorized,(10,30), font, 1,(0,255,0),2)
+        
+        #Disply the video feed
+        cv2.imshow('Face Authorizer', img)
+        
     #Close windows when loop is finshed
     cv2.destroyAllWindows()
 
