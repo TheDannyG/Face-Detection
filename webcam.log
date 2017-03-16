@@ -1,0 +1,7 @@
+INFO:botocore.credentials:Found credentials in shared credentials file: ~/.aws/credentials
+INFO:root:faces: 1 at 2017-02-20 13:09:51.965000
+INFO:botocore.credentials:Found credentials in shared credentials file: ~/.aws/credentials
+INFO:root:faces: 1 at 2017-02-20 13:10:29.641000
+INFO:botocore.vendored.requests.packages.urllib3.connectionpool:Starting new HTTPS connection (1): rekognition.us-east-1.amazonaws.com
+INFO:root:faces: 1 at 2017-02-20 13:41:34.421000
+INFO:botocore.vendored.requests.packages.urllib3.connectionpool:Starting new HTTPS connection (1): rekognition.us-east-1.amazonaws.com
